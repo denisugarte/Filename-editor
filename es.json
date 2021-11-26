@@ -1,0 +1,13 @@
+{
+    "title": "Editor de nombres de archivos",
+    "change_language": "Cambiar de idioma",
+    "rename_images_header": "Editor de nombres de imágenes",
+    "rename_captures_header": "Editor de nombres de capturas",
+    "prefix": "Prefijo: ",
+    "name_structure": "Estructura del nombre: ",
+    "change_names": "Cambiar nombres",
+    "select_directory": "Seleccionar carpeta",
+    "error": "Este campo debe estar rellenado",
+    "directory_error": "Error al intentar obtener los archivos del directorio",
+    "ok": "La operación se ha realizado correctamente"
+}

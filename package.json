@@ -1,0 +1,27 @@
+{
+  "name": "file-name-editor",
+  "version": "1.0.0",
+  "description": "GUI for editing file names in a directory",
+  "main": "main.js",
+  "author": "Denis Ugarte Arzac",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^16.0.1",
+    "electron-builder": "^22.14.5"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "build": {
+    "appId": "com.electron.file-name-editor",
+    "dmg": {
+      "title": "Fitxategien izen-editorea 1.0"
+    },
+    "snap": {
+        "title": "Fitxategien izen-editorea"
+    },
+    "win": {
+        "target": "portable"
+    }
+  }
+}

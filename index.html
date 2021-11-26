@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="index.css">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+</head>
+<body>
+    <div id = "header">
+        <img id = "flag">
+        <button id = "change_language_button" class = "button"></button>
+    </div>
+    <div id = "main_div">
+        <div id = "secondary_div1">
+            <img src = "directory.png" width = "150px" height = "150px">
+            <button id = "select_directory_button" class = "button"></button>
+            <p id = "directory"></p>
+        </div>
+        <div id = "secondary_div2">
+            <div id = "rename_images_div">
+                <div>
+                    <h2 id = "rename_images_header"></h2>
+                    <hr>
+                    <label id = "prefix_label1" class = "text"></label>
+                    <input type="text" id="prefix1" class = "text">
+                    <p id = "error1" class = "error"></p>
+                    <br>
+                </div>
+                <div id = "rename_images_button_div">
+                    <button id = "rename_images_button" class = "button"></button>
+                </div>
+            </div>
+            <div id = "rename_captures_div">
+                <div>
+                    <h2 id = "rename_captures_header"></h2>
+                    <hr>
+                    <label id = "prefix_label2"></label>
+                    <input type="text" id="prefix2" class = "text">
+                    <p id = "error2" class = "error" class = "text"></p>
+                    <br>
+                    <label id = "name_structure_label" class = "text"></label>
+                    <input type="text" id="name_structure" class = "text">
+                    <p id = "error3" class = "error"></p>
+                    <br>
+                </div>
+                <div id ="rename_captures_button_div">
+                    <button id = "rename_captures_button" class = "button"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

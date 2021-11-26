@@ -1,0 +1,13 @@
+{
+    "title": "Fitxategien izen-editorea",
+    "change_language": "Hizkuntza aldatu",
+    "rename_images_header": "Irudi-izenen editorea",
+    "rename_captures_header": "Kaptura-izenen editorea",
+    "prefix": "Aurrizkia: ",
+    "name_structure": "Izenaren egitura: ",
+    "change_names": "Izenak aldatu",
+    "select_directory": "Karpeta aukeratu",
+    "error": "Eremu hau bete behar da",
+    "directory_error": "Errorea karpetako fitxategiak eskuratzean",
+    "ok": "Operazioa ondo burutu da"
+}
