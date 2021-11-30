@@ -1,12 +1,12 @@
 const { ipcRenderer } = require('electron')
 
-const es = require("./es.json")
-const eu = require("./eu.json")
+const es = require("./strings/es.json")
+const eu = require("./strings/eu.json")
 let language = "eu"
 
 const initializeStringsEU = () => {
     document.title = eu["title"]
-    document.getElementById("flag").src = "ikurrina.png"
+    document.getElementById("flag").src = "images/ikurrina.png"
     document.getElementById("change_language_button").innerText = eu["change_language"]
     document.getElementById("select_directory_button").innerText = eu["select_directory"]
     document.getElementById("rename_images_header").innerText = eu["rename_images_header"]
@@ -23,7 +23,7 @@ const initializeStringsEU = () => {
 
 const initializeStringsES = () => {
     document.title = es["title"]
-    document.getElementById("flag").src = "bandera-espana.webp"
+    document.getElementById("flag").src = "images/bandera-espana.webp"
     document.getElementById("change_language_button").innerText = es["change_language"]
     document.getElementById("select_directory_button").innerText = es["select_directory"]
     document.getElementById("rename_images_header").innerText = es["rename_images_header"]
@@ -65,28 +65,28 @@ window.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById("prefix1").addEventListener("keyup", () => {
         if (document.getElementById("prefix1").value === "") {
-            document.getElementById("error1").style.display = "block"
+            document.getElementById("error1").style.visibility = "inherit"
         }
         else {
-            document.getElementById("error1").style.display = "none"
+            document.getElementById("error1").style.visibility = "hidden"
         }
     })
 
     document.getElementById("prefix2").addEventListener("keyup", () => {
         if (document.getElementById("prefix2").value === "") {
-            document.getElementById("error2").style.display = "block"
+            document.getElementById("error2").style.visibility = "inherit"
         }
         else {
-            document.getElementById("error2").style.display = "none"
+            document.getElementById("error2").style.visibility = "hidden"
         }
     })
 
     document.getElementById("name_structure").addEventListener("keyup", () => {
         if (document.getElementById("name_structure").value === "") {
-            document.getElementById("error3").style.display = "block"
+            document.getElementById("error3").style.visibility = "inherit"
         }
         else {
-            document.getElementById("error3").style.display = "none"
+            document.getElementById("error3").style.visibility = "hidden"
         }
     })
 

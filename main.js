@@ -7,7 +7,7 @@ const getWindowWidth = ((screenWidth) => {
 })
 
 const getWindowHeight = ((screenHeight) => {
-    return Math.round(screenHeight * 0.75)
+    return Math.round(screenHeight * 0.65)
 })
 
 const createWindow = () => {
@@ -92,6 +92,7 @@ const createWindow = () => {
 
     mainWindow.removeMenu()
     mainWindow.loadFile('index.html')
+    //mainWindow.webContents.openDevTools()
 }
 
 app.whenReady().then(() => {
