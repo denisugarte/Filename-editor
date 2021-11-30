@@ -19,12 +19,12 @@ const thereAreErrors = (error) => {
         return false
 }
 
-const visualizeExecutionOutput = (executionResult) => {
+const getExecutionOutput = (executionResult) => {
     if (thereAreErrors(executionResult[0])) {
-        alert(executionResult[1])
+        return executionResult[1]
     }
     else {
-        alert(executionOKMessage)
+        return executionOKMessage
     }
 }
 
@@ -119,7 +119,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if (document.getElementById("prefix1").value !== "") {
             ipcRenderer.invoke("rename_images", [document.getElementById("directory").innerText,
             document.getElementById("prefix1").value]).then((result) => {
-                visualizeExecutionOutput(result)
+                alert(getExecutionOutput(result))
             })
         }
     })
@@ -128,7 +128,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if (document.getElementById("prefix2").value !== "" && document.getElementById("name_structure").value !== "") {
             ipcRenderer.invoke("rename_captures", [document.getElementById("directory").innerText, document.getElementById("prefix2").value,
             document.getElementById("name_structure").value]).then((result) => {
-                visualizeExecutionOutput(result)
+                alert(getExecutionOutput(result))
             })
         }
     })
