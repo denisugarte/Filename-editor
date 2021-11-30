@@ -3,6 +3,30 @@ const { ipcRenderer } = require('electron')
 const es = require("./strings/es.json")
 const eu = require("./strings/eu.json")
 let language = "eu"
+let executionOKMessage = ""
+
+const inputIsEmpty = (element) => {
+    if (element === "")
+        return true
+    else
+        return false
+}
+
+const thereAreErrors = (error) => {
+    if (error === -1)
+        return true
+    else
+        return false
+}
+
+const visualizeExecutionOutput = (executionResult) => {
+    if (thereAreErrors(executionResult[0])) {
+        alert(executionResult[1])
+    }
+    else {
+        alert(executionOKMessage)
+    }
+}
 
 const initializeStringsEU = () => {
     document.title = eu["title"]
@@ -19,6 +43,7 @@ const initializeStringsEU = () => {
     document.getElementById("name_structure_label").innerText = eu["name_structure"]
     document.getElementById("rename_images_button").innerText = eu["change_names"]
     document.getElementById("rename_captures_button").innerText = eu["change_names"]
+    executionOKMessage = eu["ok"]
 }
 
 const initializeStringsES = () => {
@@ -36,6 +61,7 @@ const initializeStringsES = () => {
     document.getElementById("name_structure_label").innerText = es["name_structure"]
     document.getElementById("rename_images_button").innerText = es["change_names"]
     document.getElementById("rename_captures_button").innerText = es["change_names"]
+    executionOKMessage = es["ok"]
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -54,7 +80,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById("select_directory_button").addEventListener("click", () => {
         ipcRenderer.invoke("select_directory").then((result) => {
-            console.log(result)
             if (result.length > 0) {
                 document.getElementById("directory").innerText = result[0]
                 document.getElementById("directory").style.visibility = "inherit"
@@ -64,7 +89,7 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 
     document.getElementById("prefix1").addEventListener("keyup", () => {
-        if (document.getElementById("prefix1").value === "") {
+        if (inputIsEmpty(document.getElementById("prefix1").value)) {
             document.getElementById("error1").style.visibility = "inherit"
         }
         else {
@@ -73,7 +98,7 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 
     document.getElementById("prefix2").addEventListener("keyup", () => {
-        if (document.getElementById("prefix2").value === "") {
+        if (inputIsEmpty(document.getElementById("prefix2").value)) {
             document.getElementById("error2").style.visibility = "inherit"
         }
         else {
@@ -82,7 +107,7 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 
     document.getElementById("name_structure").addEventListener("keyup", () => {
-        if (document.getElementById("name_structure").value === "") {
+        if (inputIsEmpty(document.getElementById("name_structure").value)) {
             document.getElementById("error3").style.visibility = "inherit"
         }
         else {
@@ -92,18 +117,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById("rename_images_button").addEventListener("click", () => {
         if (document.getElementById("prefix1").value !== "") {
-            ipcRenderer.invoke("rename_images", [document.getElementById("directory").innerText, document.getElementById("prefix1").value]).then((result) => {
-                if (result[0] === 0) {
-                    if(language === "eu") {
-                        alert(eu["ok"])
-                    }
-                    else {
-                        alert(es["ok"])
-                    }
-                }
-                else {
-                    alert(result[1])
-                }
+            ipcRenderer.invoke("rename_images", [document.getElementById("directory").innerText,
+            document.getElementById("prefix1").value]).then((result) => {
+                visualizeExecutionOutput(result)
             })
         }
     })
@@ -112,17 +128,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if (document.getElementById("prefix2").value !== "" && document.getElementById("name_structure").value !== "") {
             ipcRenderer.invoke("rename_captures", [document.getElementById("directory").innerText, document.getElementById("prefix2").value,
             document.getElementById("name_structure").value]).then((result) => {
-                if (result[0] === 0) {
-                    if(language === "eu") {
-                        alert(eu["ok"])
-                    }
-                    else {
-                        alert(es["ok"])
-                    }
-                }
-                else {
-                    alert(result[1])
-                }
+                visualizeExecutionOutput(result)
             })
         }
     })
