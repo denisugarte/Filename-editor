@@ -55,7 +55,7 @@ const createWindow = () => {
             return[-1, errorMessage]
         }
         else {
-            return [0, ""]
+            return [0, errorMessage]
         }
     })
     ipcMain.handle("rename_captures", async (event, args) => {

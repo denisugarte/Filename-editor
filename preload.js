@@ -133,17 +133,3 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     })
 })
-
-process.once("loaded", () => {
-    window.addEventListener("message", evt => {
-        if (evt.data.type === "select_directory") {
-            ipcRenderer.send("select_directory")
-        }
-    })
-})
-
-ipcRenderer.on("selected_directory_path", (event, arg) => {
-    document.getElementById("directory").style.display = "block"
-    document.getElementById("directory").innerText = arg
-    document.getElementById("secondary_div2").style.visibility = "inherit"
-})
