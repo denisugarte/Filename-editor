@@ -2,18 +2,10 @@ const { app, BrowserWindow, dialog, ipcMain, screen } = require('electron')
 const path = require('path')
 const fs = require("fs")
 
-const getWindowWidth = ((screenWidth) => {
-    return Math.round(screenWidth * 0.55)
-})
-
-const getWindowHeight = ((screenHeight) => {
-    return Math.round(screenHeight * 0.65)
-})
-
 const createWindow = () => {
     const mainWindow = new BrowserWindow({
-        width: getWindowWidth(screen.getPrimaryDisplay().size.width),
-        height: getWindowHeight(screen.getPrimaryDisplay().size.height),
+        width: 1000,
+        height: 750,
         title: "Fitxategien izen-editorea",
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')

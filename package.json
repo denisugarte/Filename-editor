@@ -6,7 +6,7 @@
   "author": "Denis Ugarte Arzac",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^16.0.1",
+    "electron": "^16.0.2",
     "electron-builder": "^22.14.5"
   },
   "scripts": {
@@ -18,10 +18,10 @@
       "title": "Fitxategien izen-editorea 1.0"
     },
     "snap": {
-        "title": "Fitxategien izen-editorea"
+      "title": "Fitxategien izen-editorea"
     },
     "win": {
-        "target": "portable"
+      "target": "portable"
     }
   }
 }
