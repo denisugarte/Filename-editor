@@ -16,6 +16,7 @@ const createWindow = () => {
         const result = await dialog.showOpenDialog(mainWindow, {
             properties: ["openDirectory"],
         })
+
         return result.filePaths
     })
     ipcMain.handle("rename_images", async (event, args) => {
@@ -64,22 +65,26 @@ const createWindow = () => {
         const directory = args[0]
         const prefix = args[1]
         const nameStructure = args[2]
-        const files = fs.readdirSync(directory)
+        
+        try {
+            const files = fs.readdirSync(directory)
+            files.forEach((file, i) => {
+                const fileStatistics = fs.statSync(path.join(directory, file))
+                if (fileStatistics.isFile()) {
+                    const newFileName = prefix + "_" + nameStructure + "_" + (i + 1).toString() + path.extname(file)
+                    fs.renameSync(path.join(directory, file), path.join(directory, newFileName))
+                }
+            })
+        }
+        catch (error) {
+            errorMessage = error
+            executionError = true
+        }
 
-        files.forEach((file, i) => {
-            const fileStatistics = fs.statSync(path.join(directory, file))
-            if (fileStatistics.isFile()) {
-                const newFileName = prefix + "_" + nameStructure + "_" + (i + 1).toString() + path.extname(file)
-                fs.renameSync(path.join(directory, file), path.join(directory, newFileName))
-            }
-        })
-
-        if (executionError) {
+        if (executionError)
             return[-1, errorMessage]
-        }
-        else {
+        else
             return [0, ""]
-        }
     })
 
     mainWindow.removeMenu()
@@ -89,8 +94,8 @@ const createWindow = () => {
 app.whenReady().then(() => {
     createWindow()
     app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) createWindow()
-
+        if (BrowserWindow.getAllWindows().length === 0)
+            createWindow()
     })
 })
 

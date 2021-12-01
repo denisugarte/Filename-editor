@@ -8,5 +8,5 @@
     "change_names": "Cambiar nombres",
     "select_directory": "Seleccionar carpeta",
     "error": "Este campo debe estar rellenado",
-    "ok": "La operación se ha realizado correctamente"
+    "executionOK": "La operación se ha realizado correctamente"
 }
