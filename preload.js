@@ -2,11 +2,19 @@ const { ipcRenderer } = require('electron')
 
 const es = require("./strings/es.json")
 const eu = require("./strings/eu.json")
+
 let language = "eu"
 let executionOKMessage = ""
 
 const inputIsEmpty = (element) => {
     if (element === "")
+        return true
+    else
+        return false
+}
+
+const resultIsNotEmpty = (result) => {
+    if (result.length > 0)
         return true
     else
         return false
@@ -20,15 +28,13 @@ const thereAreErrors = (error) => {
 }
 
 const getExecutionOutput = (executionResult) => {
-    if (thereAreErrors(executionResult[0])) {
+    if (thereAreErrors(executionResult[0]))
         return executionResult[1]
-    }
-    else {
+    else
         return executionOKMessage
-    }
 }
 
-const initializeStringsEU = () => {
+const initializeStringsToBasque = () => {
     document.title = eu["title"]
     document.getElementById("flag").src = "images/ikurrina.png"
     document.getElementById("change_language_button").innerText = eu["change_language"]
@@ -43,10 +49,10 @@ const initializeStringsEU = () => {
     document.getElementById("name_structure_label").innerText = eu["name_structure"]
     document.getElementById("rename_images_button").innerText = eu["change_names"]
     document.getElementById("rename_captures_button").innerText = eu["change_names"]
-    executionOKMessage = eu["ok"]
+    executionOKMessage = eu["executionOK"]
 }
 
-const initializeStringsES = () => {
+const initializeStringsToSpanish = () => {
     document.title = es["title"]
     document.getElementById("flag").src = "images/bandera-espana.webp"
     document.getElementById("change_language_button").innerText = es["change_language"]
@@ -61,26 +67,26 @@ const initializeStringsES = () => {
     document.getElementById("name_structure_label").innerText = es["name_structure"]
     document.getElementById("rename_images_button").innerText = es["change_names"]
     document.getElementById("rename_captures_button").innerText = es["change_names"]
-    executionOKMessage = es["ok"]
+    executionOKMessage = es["executionOK"]
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    initializeStringsEU()
+    initializeStringsToBasque()
 
     document.getElementById("change_language_button").addEventListener("click", () => {
         if (language === "eu") {
-            initializeStringsES()
+            initializeStringsToSpanish()
             language = "es"
         }
         else {
-            initializeStringsEU()
+            initializeStringsToBasque()
             language = "eu"
         }
     })
 
     document.getElementById("select_directory_button").addEventListener("click", () => {
         ipcRenderer.invoke("select_directory").then((result) => {
-            if (result.length > 0) {
+            if (resultIsNotEmpty(result)) {
                 document.getElementById("directory").innerText = result[0]
                 document.getElementById("directory").style.visibility = "inherit"
                 document.getElementById("secondary_div2").style.visibility = "inherit"
@@ -89,34 +95,28 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 
     document.getElementById("prefix1").addEventListener("keyup", () => {
-        if (inputIsEmpty(document.getElementById("prefix1").value)) {
+        if (inputIsEmpty(document.getElementById("prefix1").value))
             document.getElementById("error1").style.visibility = "inherit"
-        }
-        else {
+        else
             document.getElementById("error1").style.visibility = "hidden"
-        }
     })
 
     document.getElementById("prefix2").addEventListener("keyup", () => {
-        if (inputIsEmpty(document.getElementById("prefix2").value)) {
+        if (inputIsEmpty(document.getElementById("prefix2").value))
             document.getElementById("error2").style.visibility = "inherit"
-        }
-        else {
+        else
             document.getElementById("error2").style.visibility = "hidden"
-        }
     })
 
     document.getElementById("name_structure").addEventListener("keyup", () => {
-        if (inputIsEmpty(document.getElementById("name_structure").value)) {
+        if (inputIsEmpty(document.getElementById("name_structure").value))
             document.getElementById("error3").style.visibility = "inherit"
-        }
-        else {
+        else
             document.getElementById("error3").style.visibility = "hidden"
-        }
     })
 
     document.getElementById("rename_images_button").addEventListener("click", () => {
-        if (document.getElementById("prefix1").value !== "") {
+        if (!inputIsEmpty(document.getElementById("prefix1").value)) {
             ipcRenderer.invoke("rename_images", [document.getElementById("directory").innerText,
             document.getElementById("prefix1").value]).then((result) => {
                 alert(getExecutionOutput(result))
@@ -132,18 +132,4 @@ window.addEventListener('DOMContentLoaded', () => {
             })
         }
     })
-})
-
-process.once("loaded", () => {
-    window.addEventListener("message", evt => {
-        if (evt.data.type === "select_directory") {
-            ipcRenderer.send("select_directory")
-        }
-    })
-})
-
-ipcRenderer.on("selected_directory_path", (event, arg) => {
-    document.getElementById("directory").style.display = "block"
-    document.getElementById("directory").innerText = arg
-    document.getElementById("secondary_div2").style.visibility = "inherit"
 })
