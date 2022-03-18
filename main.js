@@ -37,7 +37,7 @@ const createWindow = () => {
                         }
                         else {
                             if (stats.isFile()) {
-                                const newFileName = prefix + "_" + file.replaceAll(" ", "_") + path.extname(file)
+                                const newFileName = prefix + "_" + file.replaceAll(" ", "_")
                                 fs.rename(path.join(directory, file), path.join(directory, newFileName), (error) => {
                                     if (error) {
                                         executionError = true
